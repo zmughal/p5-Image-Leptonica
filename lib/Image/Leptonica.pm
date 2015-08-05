@@ -18,7 +18,7 @@ our $leptonica_h = file(__FILE__)->dir
 Inline->bind( C => $leptonica_h =>
 	NAME => 'Image::Leptonica' =>
 	VERSION => $Image::Leptonica::VERSION =>
-	%{ Image::Leptonica->Inline('C') },
+	%{ Alien::Leptonica->Inline('C') },
 	ENABLE => AUTOWRAP =>
 	BOOT => <<'END_BOOT_C'
 		HV *stash = gv_stashpvn ("Image::Leptonica::FileFormat", strlen("Image::Leptonica::FileFormat"), TRUE);
@@ -28,7 +28,7 @@ END_BOOT_C
 	);
 
 sub Alien {
-	goto &Alien::Leptonica::Inline;
+	shift; Alien::Leptonica->Inline(@_);
 }
 
 =pod
